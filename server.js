@@ -7,6 +7,17 @@ const collectibles = [
     { name: 'vintage 1970s yogurt SOLD AS-IS', price: 0.99 }
   ];
 
+  const shoes = [
+    { name: "Birkenstocks", price: 50, type: "sandal" },
+    { name: "Air Jordans", price: 500, type: "sneaker" },
+    { name: "Air Mahomeses", price: 501, type: "sneaker" },
+    { name: "Utility Boots", price: 20, type: "boot" },
+    { name: "Velcro Sandals", price: 15, type: "sandal" },
+    { name: "Jet Boots", price: 1000, type: "boot" },
+    { name: "Fifty-Inch Heels", price: 175, type: "heel" }
+];
+
+
 
 // Exercise 1 Be Polite, Greet the User
 
@@ -39,12 +50,29 @@ app.get('/collectibles/:index', (req, res) => {
     }
 })
 
-// Exercise 4 
+// Exercise 4 Filter Shoes by Query Parameters
 
+app.get('/shoes', (req, res) => {
+    const minPrice = (req.query.min_price)
+    const maxPrice = (req.query.max_price)
+    const type = (req.query.type)
 
+    const filteredShoes = shoes.filter(shoe => {
+        let keep = true
+        if(minPrice && shoe.price < minPrice) {
+            keep = false
+        }
+        if(maxPrice && shoe.price > maxPrice) {
+            keep = false
+        }
+        if(type && shoe.type !== type) {
+            keep = false
+        }
+        return keep
+    })
 
-
-
+    res.json(filteredShoes)
+})
 
 
 
@@ -54,3 +82,11 @@ app.get('/collectibles/:index', (req, res) => {
 app.listen(3000, () => {
     console.log('Listening on port 3000 ')
 })
+
+
+
+
+
+
+
+
