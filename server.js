@@ -29,14 +29,16 @@ app.get('/greetings/:name', (req, res) => {
 // Exercise 2 Rolling the Dice
 
 app.get('/roll/:number', (req, res) => {
-    const number = (req.params.number)
-    if (isNaN(number)) {
-        res.send('You must specify a number.')
+    const number = req.params.number;
+    const num = parseInt(number, 10);               
+    
+    if (Number.isNaN (num)) {                       
+        res.send('You must specify a number!');
     } else {
-        const randomNumber = Math.floor(Math.random() * (number + 1))
-        res.send(`You rolled a ${randomNumber}.`)
+        const randomNum = Math.floor(Math.random() * (num + 1));
+        res.send(`You rolled a ${randomNum}!`)
     }
-}) 
+});
 
 // Exercise 3 I Want THAT One !
 
